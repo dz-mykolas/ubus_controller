@@ -19,10 +19,20 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-
-
-# ubus_controller
-ubus call usb_controller on '{"name":"/dev/ttyUSB0","pin":16}' <br />
-ubus call usb_controller get <br />
+<!-- USAGE EXAMPLES -->
+## Usage
+List available functions for this program
+```sh
 ubus -v list usb_controller <br />
-opkg install ubus_controller_1.0.0-1_arm_cortex-a7_neon-vfpv4.ipk -force-reinstall <br />
+```
+Get connected USB devices
+```sh
+ubus call usb_controller get <br />
+```
+Turn on device example
+ubus call usb_controller on '{"name":"device_port","pin":pin_on_device}' <br />
+ubus call usb_controller on '{"name":"/dev/ttyUSB0","pin":16}' <br />
+_For more examples, please refer to the [Documentation](https://example.com)_
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
