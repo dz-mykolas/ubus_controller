@@ -1,4 +1,3 @@
-<!-- USAGE EXAMPLES -->
 ## Usage
 List available functions for this program
 ```sh
