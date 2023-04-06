@@ -50,6 +50,17 @@ void llist_remove_all(struct USB_device **list)
     *list = NULL;
 }
 
+int check_compatible(int vid, int pid)
+{
+    if ((vid == CH340_VENDOR && pid == CH340_PRODUCT) 
+    || (vid == CP2102_VENDOR && pid == CP2102_PRODUCT))
+        return 0;
+    char buffer[50];
+    snprintf(buffer, 50, "Incompatible device found with VID: %04X, PID: %04X", vid, pid);
+    log_event(LOG_NOTICE, buffer);
+    return 1;
+}
+
 void *get_usb_ports(struct USB_device **list)
 {
     struct sp_port **port_list;
@@ -68,6 +79,8 @@ void *get_usb_ports(struct USB_device **list)
             char *port_name = sp_get_port_name(port);
 		    int usb_vid, usb_pid;
 		    sp_get_port_usb_vid_pid(port, &usb_vid, &usb_pid);
+            if (check_compatible(usb_vid, usb_pid) == 1)
+                continue;
             struct USB_device *d = NULL;
             d = create_node(port_name, usb_vid, usb_pid);
             llist_add_end(list, d);
